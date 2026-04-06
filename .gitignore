@@ -1,0 +1,17 @@
+# Dépendances
+node_modules/
+
+# Build Next.js
+.next/
+out/
+
+# Variables d'environnement (contient ta clé Resend — ne jamais uploader)
+.env.local
+.env*.local
+
+# Système
+.DS_Store
+*.pem
+
+# Logs
+npm-debug.log*

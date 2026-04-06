@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #FDFAF5;
+  --color-beige: #F0E5D0;
+  --color-sand: #D4B896;
+  --color-wood: #8B5E3C;
+  --color-bark: #3E2111;
+  --color-olive: #5C6B4A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: #2C2014;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+::selection {
+  background-color: #D4B896;
+  color: #3E2111;
+}
+
+/* Typographie de base */
+h1, h2, h3, h4 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Input focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-wood);
+  box-shadow: 0 0 0 2px rgba(139, 94, 60, 0.15);
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wood);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
