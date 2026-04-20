@@ -101,13 +101,13 @@ export default function Header() {
           isOpen ? 'max-h-screen' : 'max-h-0'
         }`}
       >
-        <div className='bg-bark/98 backdrop-blur-md px-6 py-6 flex flex-col gap-4 border-t border-white/10'>
+        <div className='bg-bark px-6 py-6 flex flex-col gap-4 border-t border-white/10'>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={`text-base tracking-wider uppercase font-sans py-2 border-b border-white/10 transition-colors ${
-                pathname === link.href ? 'text-sand' : 'text-white/70'
+                pathname === link.href ? 'text-sand' : 'text-white'
               }`}
             >
               {link.label}

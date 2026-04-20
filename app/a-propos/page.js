@@ -7,7 +7,7 @@ import Button from '@/components/Button'
 export const metadata = {
   title: 'À propos',
   description:
-    "Découvrez l'histoire de Perfect Aménagement : une entreprise familiale de menuiserie intérieure fondée sur 25 ans de savoir-faire artisanal.",
+    "Découvrez l'histoire de Perfect Aménagement : une entreprise familiale de menuiserie intérieure, fondée par un artisan menuisier fort de 25 ans d'expérience dans le métier.",
 }
 
 const values = [
@@ -39,7 +39,7 @@ export default function AProposPage() {
       <PageHero
         eyebrow='Notre histoire'
         title='Une passion transmise, un métier maîtrisé'
-        subtitle="Perfect Aménagement, c'est 25 ans de savoir-faire artisanal au service de vos projets intérieurs."
+        subtitle="Perfect Aménagement, c'est une jeune entreprise portée par 25 ans d'expérience dans le métier de la menuiserie."
       />
 
       {/* Histoire */}
@@ -67,7 +67,7 @@ export default function AProposPage() {
               <div>
                 <p className='text-xs tracking-widest uppercase text-wood font-sans mb-5'>Nos origines</p>
                 <h2 className='font-serif text-3xl lg:text-4xl text-bark mb-6 leading-tight'>
-                  25 ans à transformer des espaces
+                  25 ans d'expérience, une entreprise à taille humaine
                 </h2>
                 <p className='text-bark/65 leading-relaxed text-lg'>
                   Perfect Aménagement est née d'une passion simple et profonde pour le bois
@@ -97,8 +97,7 @@ export default function AProposPage() {
 
               <blockquote className='border-l-2 border-wood pl-6'>
                 <p className='font-serif text-xl text-bark italic leading-relaxed'>
-                  "Mon père m'a appris que la qualité d'un meuble se voit dans ses finitions.
-                  25 ans plus tard, c'est toujours cette exigence qui guide notre travail."
+                  "Mon père exerce la menuiserie depuis 25 ans. C'est cette exigence, transmise au quotidien, qui guide chacune de nos réalisations."
                 </p>
               </blockquote>
             </div>

@@ -21,7 +21,7 @@ export const metadata = {
     template: '%s | Perfect Aménagement',
   },
   description:
-    'Fabrication de mobilier et aménagements intérieurs sur mesure : meubles de salle de bain, bibliothèques, habillages muraux, claustras. Artisans menuisiers depuis 25 ans.',
+    'Fabrication de mobilier et aménagements intérieurs sur mesure : meubles de salle de bain, bibliothèques, habillages muraux, claustras. Fondée par un artisan fort de 25 ans d\'expérience.',
   keywords: [
     'menuiserie sur mesure',
     'mobilier intérieur sur mesure',

@@ -10,9 +10,18 @@ const projectTypes = [
   'Habillage mural',
   'Claustra',
   "Borne d'accueil",
+  'Cuisine',
   'Mobilier sur mesure',
   'Bâti de porte / châssis',
   'Autre',
+]
+
+const budgetRanges = [
+  'Moins de 1 000 €',
+  '1 000 € – 5 000 €',
+  '5 000 € – 15 000 €',
+  'Plus de 15 000 €',
+  'Je ne sais pas encore',
 ]
 
 const initialForm = {
@@ -20,6 +29,7 @@ const initialForm = {
   email: '',
   telephone: '',
   typeProjet: '',
+  budget: '',
   dimensions: '',
   materiaux: '',
   description: '',
@@ -184,6 +194,28 @@ export default function DevisForm() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div>
+          <label className='block text-sm text-bark/70 mb-3' htmlFor='budget'>
+            Fourchette de budget
+          </label>
+          <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
+            {budgetRanges.map((range) => (
+              <button
+                key={range}
+                type='button'
+                onClick={() => setForm((prev) => ({ ...prev, budget: range }))}
+                className={`px-3 py-2.5 text-xs font-sans border transition-colors duration-150 text-left ${
+                  form.budget === range
+                    ? 'border-wood bg-wood text-white'
+                    : 'border-sand/60 bg-white text-bark/70 hover:border-wood hover:text-bark'
+                }`}
+              >
+                {range}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div>

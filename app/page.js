@@ -9,7 +9,7 @@ import { projects } from '@/lib/projects'
 export const metadata = {
   title: 'Perfect Aménagement – Menuiserie intérieure sur mesure',
   description:
-    'Fabrication de mobilier et aménagements intérieurs sur mesure depuis 25 ans. Meubles salle de bain, bibliothèques, habillages muraux, claustras.',
+    'Fabrication de mobilier et aménagements intérieurs sur mesure. Fondée par un artisan menuisier fort de 25 ans d\'expérience dans le métier.',
 }
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 3)
@@ -37,8 +37,8 @@ const expertiseItems = [
 
 const reassuranceItems = [
   {
-    title: '25 ans de savoir-faire',
-    description: 'Une expertise transmise et affinée au fil des années. Chaque projet profite de cette expérience.',
+    title: '25 ans d\'expérience dans le métier',
+    description: 'Notre fondateur exerce la menuiserie depuis 25 ans. Ce savoir-faire se retrouve dans chaque projet, chaque détail, chaque finition.',
   },
   {
     title: 'Fabrication 100% sur mesure',
@@ -78,7 +78,7 @@ export default function HomePage() {
         <div className='relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 pb-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-16'>
           <div className='max-w-3xl'>
             <p className='text-xs tracking-widest uppercase text-sand font-sans mb-8'>
-              Artisans de l'intérieur depuis 25 ans
+              25 ans d'expérience dans le métier
             </p>
             <h1 className='font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.05] text-balance'>
               L'art du bois,
@@ -119,10 +119,10 @@ export default function HomePage() {
         <div className='max-w-7xl mx-auto px-6 lg:px-10'>
           <div className='grid grid-cols-2 lg:grid-cols-4 divide-x divide-sand/30'>
             {[
-              { value: '25 ans', label: "D'expérience" },
+              { value: '25 ans', label: "D'expérience dans le métier" },
               { value: '200+', label: 'Projets réalisés' },
               { value: '100%', label: 'Sur mesure' },
-              { value: '3', label: 'Matériaux maîtrisés' },
+              { value: 'Sur mesure', label: 'Matériaux & finitions au choix' },
             ].map((stat) => (
               <div key={stat.label} className='py-8 lg:py-10 px-6 lg:px-10 text-center'>
                 <div className='font-serif text-3xl lg:text-4xl text-bark mb-1'>{stat.value}</div>
@@ -190,7 +190,7 @@ export default function HomePage() {
                 subtitle="MDF, mélaminé, chants ABS : chaque matériau est sélectionné pour sa qualité, sa durabilité et le rendu final qu'il offre à votre projet."
               />
               <div className='mt-10 flex flex-col gap-4'>
-                {['MDF — stabilité et précision de découpe', 'Mélaminé — diversité des décors, solidité', 'Chants ABS — finition nette, invisible'].map((item) => (
+                {['MDF / Medium — stabilité et précision de découpe', 'Mélaminé — toutes couleurs et décors', 'Bois brut — chaleur et authenticité', 'Stratifié — résistance pour surfaces intensives', 'Chants ABS — finition nette, toutes couleurs'].map((item) => (
                   <div key={item} className='flex items-center gap-3'>
                     <span className='w-6 h-px bg-wood flex-shrink-0' />
                     <span className='text-sm text-bark/70'>{item}</span>
@@ -207,7 +207,7 @@ export default function HomePage() {
             {/* Image — remplacez /images/atelier.jpg */}
             <div className='relative aspect-[4/3] bg-beige overflow-hidden'>
               <Image
-                src='/images/atelier.jpg'
+                src='/images/atelier.PNG'
                 alt="Atelier de fabrication Perfect Aménagement"
                 fill
                 className='object-cover'
@@ -262,7 +262,7 @@ export default function HomePage() {
                 Notre histoire
               </p>
               <blockquote className='font-serif text-3xl lg:text-4xl text-bark leading-tight mb-8 text-balance'>
-                "25 ans à fabriquer ce que les clients imaginent."
+                "25 ans dans le métier, au service de vos projets."
               </blockquote>
               <p className='text-bark/65 leading-relaxed mb-6'>
                 Perfect Aménagement est une entreprise familiale fondée sur une passion transmise :

@@ -15,6 +15,7 @@ export async function POST(request) {
     const email = sanitize(data.get('email'))
     const telephone = sanitize(data.get('telephone'))
     const typeProjet = sanitize(data.get('typeProjet'))
+    const budget = sanitize(data.get('budget'))
     const dimensions = sanitize(data.get('dimensions'))
     const materiaux = sanitize(data.get('materiaux'))
     const description = sanitize(data.get('description'))
@@ -81,6 +82,12 @@ export async function POST(request) {
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Type de projet</td>
               <td style="padding: 10px 0;">${typeProjet}</td>
             </tr>
+            ${budget ? `
+            <tr style="border-bottom: 1px solid #F0E5D0;">
+              <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Budget</td>
+              <td style="padding: 10px 0;">${budget}</td>
+            </tr>
+            ` : ''}
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Dimensions</td>
               <td style="padding: 10px 0;">${dimensions}</td>

@@ -96,7 +96,7 @@ export default function MateriauxPage() {
             <div className='relative aspect-[4/3] bg-beige overflow-hidden'>
               {/* Remplacez /images/atelier-detail.jpg par votre photo */}
               <Image
-                src='/images/atelier-detail.jpg'
+                src='/images/atelier.PNG'
                 alt='Détail de fabrication en atelier'
                 fill
                 className='object-cover'

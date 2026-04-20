@@ -41,8 +41,8 @@ export default function ContactPage() {
                   {[
                     {
                       label: 'Téléphone',
-                      value: '+33 X XX XX XX XX',
-                      href: 'tel:+33XXXXXXXXX',
+                      value: '+33 7 83 23 83 19',
+                      href: 'tel:+33783238319',
                       note: 'Lundi – Vendredi, 8h – 18h',
                     },
                     {
@@ -53,7 +53,7 @@ export default function ContactPage() {
                     },
                     {
                       label: 'Localisation',
-                      value: 'Votre ville, France',
+                      value: 'Montigny-en-Gohelle, France',
                       href: null,
                       note: 'Atelier et déplacements zone locale',
                     },
