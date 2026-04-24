@@ -207,7 +207,7 @@ export default function HomePage() {
             {/* Image — remplacez /images/atelier.jpg */}
             <div className='relative aspect-[4/3] bg-beige overflow-hidden'>
               <Image
-                src='/images/atelier.PNG'
+                src='/images/atelier.png'
                 alt="Atelier de fabrication Perfect Aménagement"
                 fill
                 className='object-cover'
@@ -248,7 +248,7 @@ export default function HomePage() {
             {/* Image — remplacez /images/portrait.jpg */}
             <div className='relative aspect-[3/4] bg-beige overflow-hidden lg:order-2'>
               <Image
-                src='/images/portrait.jpg'
+                src='/images/artisan.png'
                 alt='Artisan menuisier Perfect Aménagement'
                 fill
                 className='object-cover'

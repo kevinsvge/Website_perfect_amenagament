@@ -49,7 +49,7 @@ export default function AProposPage() {
             {/* Image portrait — remplacez /images/fondateur.jpg */}
             <div className='relative aspect-[3/4] bg-beige overflow-hidden sticky top-28'>
               <Image
-                src='/images/fondateur.jpg'
+                src='/images/fondateur.png'
                 alt='Fondateur Perfect Aménagement'
                 fill
                 className='object-cover'

@@ -1,14 +1,23 @@
 import { Resend } from 'resend'
+import { headers } from 'next/headers'
+import { sanitize, escapeHtml, isFileAllowed, checkRateLimit } from '@/utils/api'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-function sanitize(str) {
-  if (typeof str !== 'string') return ''
-  return str.trim().slice(0, 5000)
-}
+const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 Mo
 
 export async function POST(request) {
   try {
+    // Rate limiting
+    const headersList = headers()
+    const ip = headersList.get('x-forwarded-for') || 'unknown'
+    if (!checkRateLimit(ip)) {
+      return new Response(JSON.stringify({ error: 'Trop de requêtes. Réessayez dans une minute.' }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json', 'Retry-After': '60' },
+      })
+    }
+
     const data = await request.formData()
 
     const nom = sanitize(data.get('nom'))
@@ -18,10 +27,10 @@ export async function POST(request) {
     const budget = sanitize(data.get('budget'))
     const dimensions = sanitize(data.get('dimensions'))
     const materiaux = sanitize(data.get('materiaux'))
-    const description = sanitize(data.get('description'))
+    const description = sanitize(data.get('description'), 5000)
     const files = data.getAll('files').filter((f) => f && f.size > 0)
 
-    // Validation
+    // Validation des champs requis
     if (!nom || !email || !telephone || !typeProjet || !dimensions || !description) {
       return new Response(JSON.stringify({ error: 'Champs requis manquants' }), {
         status: 400,
@@ -29,7 +38,7 @@ export async function POST(request) {
       })
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
     if (!emailRegex.test(email)) {
       return new Response(JSON.stringify({ error: 'Email invalide' }), {
         status: 400,
@@ -37,15 +46,24 @@ export async function POST(request) {
       })
     }
 
-    // Préparer les pièces jointes (max 10 fichiers, 10Mo chacun)
-    const attachments = []
-    const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 Mo
+    // Échappement HTML
+    const sNom = escapeHtml(nom)
+    const sEmail = escapeHtml(email)
+    const sTelephone = escapeHtml(telephone)
+    const sTypeProjet = escapeHtml(typeProjet)
+    const sBudget = escapeHtml(budget)
+    const sDimensions = escapeHtml(dimensions)
+    const sMateriaux = escapeHtml(materiaux)
+    const sDescription = escapeHtml(description)
 
+    // Validation et traitement des fichiers
+    const attachments = []
     for (const file of files.slice(0, 10)) {
       if (file.size > MAX_FILE_SIZE) continue
+      if (!isFileAllowed(file)) continue // Rejette les types non autorisés
       const buffer = Buffer.from(await file.arrayBuffer())
       attachments.push({
-        filename: file.name,
+        filename: file.name.replace(/[^a-zA-Z0-9._-]/g, '_'), // Sanitise le nom
         content: buffer,
       })
     }
@@ -54,7 +72,7 @@ export async function POST(request) {
       from: process.env.FROM_EMAIL || 'contact@perfect-amenagement.fr',
       to: process.env.CONTACT_EMAIL || 'votre@email.com',
       replyTo: email,
-      subject: `Demande de devis — ${typeProjet} — ${nom}`,
+      subject: `Demande de devis — ${sTypeProjet} — ${sNom}`,
       attachments,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #2C2014;">
@@ -62,47 +80,47 @@ export async function POST(request) {
             Nouvelle demande de devis
           </h2>
           <p style="font-size: 14px; color: #8B5E3C; margin: 0 0 28px 0;">
-            Projet : <strong>${typeProjet}</strong>
+            Projet : <strong>${sTypeProjet}</strong>
           </p>
 
           <table style="width: 100%; border-collapse: collapse;">
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; width: 160px;">Nom</td>
-              <td style="padding: 10px 0;">${nom}</td>
+              <td style="padding: 10px 0;">${sNom}</td>
             </tr>
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Email</td>
-              <td style="padding: 10px 0;"><a href="mailto:${email}" style="color: #8B5E3C;">${email}</a></td>
+              <td style="padding: 10px 0;"><a href="mailto:${sEmail}" style="color: #8B5E3C;">${sEmail}</a></td>
             </tr>
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Téléphone</td>
-              <td style="padding: 10px 0;"><a href="tel:${telephone}" style="color: #8B5E3C;">${telephone}</a></td>
+              <td style="padding: 10px 0;"><a href="tel:${sTelephone}" style="color: #8B5E3C;">${sTelephone}</a></td>
             </tr>
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Type de projet</td>
-              <td style="padding: 10px 0;">${typeProjet}</td>
+              <td style="padding: 10px 0;">${sTypeProjet}</td>
             </tr>
-            ${budget ? `
+            ${sBudget ? `
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Budget</td>
-              <td style="padding: 10px 0;">${budget}</td>
+              <td style="padding: 10px 0;">${sBudget}</td>
             </tr>
             ` : ''}
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Dimensions</td>
-              <td style="padding: 10px 0;">${dimensions}</td>
+              <td style="padding: 10px 0;">${sDimensions}</td>
             </tr>
-            ${materiaux ? `
+            ${sMateriaux ? `
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Matériaux</td>
-              <td style="padding: 10px 0;">${materiaux}</td>
+              <td style="padding: 10px 0;">${sMateriaux}</td>
             </tr>
             ` : ''}
           </table>
 
           <div style="margin-top: 24px; padding: 20px; background: #F0E5D0; border-left: 3px solid #8B5E3C;">
             <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #8B5E3C; margin: 0 0 12px 0;">Description du projet</p>
-            <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${description}</p>
+            <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${sDescription}</p>
           </div>
 
           ${attachments.length > 0 ? `
@@ -112,7 +130,7 @@ export async function POST(request) {
           ` : '<p style="margin-top: 20px; font-size: 13px; color: #B8956A;">Aucun fichier joint.</p>'}
 
           <p style="margin-top: 24px; font-size: 12px; color: #B8956A;">
-            Répondez directement à cet email pour contacter ${nom}.
+            Répondez directement à cet email pour contacter ${sNom}.
           </p>
         </div>
       `,
@@ -122,8 +140,7 @@ export async function POST(request) {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     })
-  } catch (error) {
-    console.error('Erreur envoi devis:', error)
+  } catch {
     return new Response(JSON.stringify({ error: 'Erreur serveur' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
