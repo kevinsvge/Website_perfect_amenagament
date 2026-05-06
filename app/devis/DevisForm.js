@@ -24,12 +24,21 @@ const budgetRanges = [
   'Je ne sais pas encore',
 ]
 
+const urgenceOptions = [
+  'Pas de délai précis',
+  'Dans les 3 mois',
+  'Dans le mois',
+  'Urgent – moins de 2 semaines',
+]
+
 const initialForm = {
   nom: '',
   email: '',
   telephone: '',
   typeProjet: '',
   budget: '',
+  urgence: '',
+  datesouhaitee: '',
   dimensions: '',
   materiaux: '',
   description: '',
@@ -216,6 +225,42 @@ export default function DevisForm() {
               </button>
             ))}
           </div>
+        </div>
+
+        <div>
+          <label className='block text-sm text-bark/70 mb-3'>
+            Délai souhaité
+          </label>
+          <div className='grid grid-cols-2 gap-2'>
+            {urgenceOptions.map((option) => (
+              <button
+                key={option}
+                type='button'
+                onClick={() => setForm((prev) => ({ ...prev, urgence: option }))}
+                className={`px-3 py-2.5 text-xs font-sans border transition-colors duration-150 text-left ${
+                  form.urgence === option
+                    ? 'border-wood bg-wood text-white'
+                    : 'border-sand/60 bg-white text-bark/70 hover:border-wood hover:text-bark'
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className='block text-sm text-bark/70 mb-2' htmlFor='datesouhaitee'>
+            Date souhaitée (optionnel)
+          </label>
+          <input
+            id='datesouhaitee'
+            name='datesouhaitee'
+            type='date'
+            value={form.datesouhaitee}
+            onChange={handleChange}
+            className='w-full bg-white border border-sand/60 px-4 py-3 text-sm text-bark transition-colors'
+          />
         </div>
 
         <div>

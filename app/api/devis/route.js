@@ -25,6 +25,8 @@ export async function POST(request) {
     const telephone = sanitize(data.get('telephone'))
     const typeProjet = sanitize(data.get('typeProjet'))
     const budget = sanitize(data.get('budget'))
+    const urgence = sanitize(data.get('urgence'))
+    const datesouhaitee = sanitize(data.get('datesouhaitee'))
     const dimensions = sanitize(data.get('dimensions'))
     const materiaux = sanitize(data.get('materiaux'))
     const description = sanitize(data.get('description'), 5000)
@@ -52,6 +54,8 @@ export async function POST(request) {
     const sTelephone = escapeHtml(telephone)
     const sTypeProjet = escapeHtml(typeProjet)
     const sBudget = escapeHtml(budget)
+    const sUrgence = escapeHtml(urgence)
+    const sDatesouhaitee = escapeHtml(datesouhaitee)
     const sDimensions = escapeHtml(dimensions)
     const sMateriaux = escapeHtml(materiaux)
     const sDescription = escapeHtml(description)
@@ -104,6 +108,18 @@ export async function POST(request) {
             <tr style="border-bottom: 1px solid #F0E5D0;">
               <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Budget</td>
               <td style="padding: 10px 0;">${sBudget}</td>
+            </tr>
+            ` : ''}
+            ${sUrgence ? `
+            <tr style="border-bottom: 1px solid #F0E5D0;">
+              <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Délai</td>
+              <td style="padding: 10px 0;">${sUrgence}</td>
+            </tr>
+            ` : ''}
+            ${sDatesouhaitee ? `
+            <tr style="border-bottom: 1px solid #F0E5D0;">
+              <td style="padding: 10px 0; color: #8B5E3C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Date souhaitée</td>
+              <td style="padding: 10px 0;">${sDatesouhaitee}</td>
             </tr>
             ` : ''}
             <tr style="border-bottom: 1px solid #F0E5D0;">
