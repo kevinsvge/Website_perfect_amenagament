@@ -45,9 +45,10 @@ export default function AProposPage() {
       {/* Histoire */}
       <section className='py-20 lg:py-28'>
         <div className='max-w-7xl mx-auto px-6 lg:px-10'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start'>
-            {/* Image portrait — remplacez /images/fondateur.jpg */}
-            <div className='relative aspect-[3/4] bg-beige overflow-hidden sticky top-28'>
+          <div className='lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start'>
+            {/* Image portrait */}
+            <div className='sticky top-20 lg:top-28 mb-12 lg:mb-0'>
+            <div className='relative aspect-[4/3] lg:aspect-[3/4] bg-beige overflow-hidden'>
               <Image
                 src='/images/fondateur.png'
                 alt='Fondateur Perfect Aménagement'
@@ -60,6 +61,7 @@ export default function AProposPage() {
                 <div className='font-serif text-4xl text-sand leading-none'>25</div>
                 <div className='text-xs text-white/60 tracking-widest uppercase font-sans mt-1'>ans</div>
               </div>
+            </div>
             </div>
 
             {/* Texte */}
