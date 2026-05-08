@@ -1,4 +1,5 @@
 import { Playfair_Display, Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -46,6 +47,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='fr' className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-CSKF7W1KPF'
+          strategy='afterInteractive'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CSKF7W1KPF');
+          `}
+        </Script>
+      </head>
       <body className='bg-cream text-bark antialiased'>
         <Header />
         <main>{children}</main>
